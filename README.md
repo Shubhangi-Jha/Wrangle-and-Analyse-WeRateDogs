@@ -3,77 +3,78 @@ Really world data can be dirty as well as messy, i.e., it can have quality as we
 
 
 # Project details:
-# Gathering Data: Gathering the data will be accomplished in three steps:
+## Gathering Data: Gathering the data will be accomplished in three steps:
 
 1.  Downloaded the file on hand twitter_archive_enhanced.csv manually.
 2.  This file (image_predictions.tsv) is hosted on Udacity's servers and is to be downloaded programmatically using the Requests library and the following URL: https://d17h27t6h515a5.cloudfront.net/topher/2017/August/599fd2ad_image-predictions/image-predictions.tsv
 3.  Each tweet's retweet count and favorite ("like") count at minimum, and any additional data you find interesting. This data is available on Tweepy. However due to exigencies, I couldn't get access to the Twitter's API, so downloaded the file called tweet_json.txt file manually.Read this .txt file line by line into a pandas DataFrame with (at minimum) tweet ID, retweet count, and favorite count.
 
-2. Assessing the data :
+## Assessing the data :
 Assessing the data to find quality (dirty) and tidiness (messy) issues. Used the following functions for programatic and manual assessments for all the three dataframes:
 df.info(), df.head(), df.tail(), df.sample(5), df.column.value_counts(), df.describe(),sum(archive.tweet_id.duplicated())
 
-3. Issues identified :
+## Issues identified :
 
-## Archive dataframe:
-### Completeness :
+### Archive dataframe:
+#### Completeness :
 
 1. retweeted_status_id, retweeted_status_user_id, retweeted_status_timestamp have only 181 values.
 2. in_reply_to_status_id and in_reply_to_user_id have only 78 non-null values.
 3. expanded_urls are missing, there are 2297 values as against 2356.
 
-### Validity:
+#### Validity:
 
 1. In the names column : There are some dogs whose names are : 'a','an' and 'None'.
 2. rating_numerator has values which go as high as 1776.
 
-### Accuracy: 
+#### Accuracy: 
 1. timestamp should not be an string datatype. It should be 'timestamp' datatype.
 
 
-### Consistency:
+#### Consistency:
 
 1. rating_denominator has 23 values which are other than 10 (some are as high as 170 and some as low as 0, having 0 as the denominator is a potential problem). This makes comparison not consistent.
 2. HTML tags in the source column make the data look dirty.
 3. As per the requirements of the project, delete retweets.
 
-### Tidiness: A tidy dataframe should be one where : each variable is listed as a column, each entry is a row and each observational unit forms as table.
+#### Tidiness:
+A tidy dataframe should be one where : each variable is listed as a column, each entry is a row and each observational unit forms as table.
 
 1. There are four columns for the different dog types: doggo, floofer, pupper, puppo
 
-## image predictions dataframe:
-### Completeness:
+### image predictions dataframe:
+#### Completeness:
 
 1. There are 2075 entries in this dataframe as against 2356 in archive dataframe.
 
-### Validity :
+#### Validity :
 
 As per the description of this data frame, p1 contains the breed names. "pole, nail, sandbar, swab, suit, traffic light, hotdog, cowboy_boot, teapot, cup, china_cabinet, website, seat_belt, American black bear" are not dog breeds.
 
 
-### Consistency:
+#### Consistency:
 
 The starting alphabet of the dog breeds in p1, p2 and p3 are sometimes in uppercase and other times in lower case.
 
-### Tidiness :
+#### Tidiness :
 
 This dataframe does not form a separate observational unit. It is a part of the archive dataframe.
 
-## twitter_data_web dataframe:
+### twitter_data_web dataframe:
 
-### Completeness
+#### Completeness
 
 There are 2356 entries in the archive dataframe while this one has 2354 entries.
 
-### Accuracy :
+#### Accuracy :
 
 tweet_id is an 'int' datatype.
 
-### Tidiness :
+#### Tidiness :
 
 This dataframe does not form separate unit of measurement. It is a part of the archive dataframe.
 
-# Cleaning the Data :
+## Cleaning the Data :
 Created copies of three data frames. Cleaned all the above identified issues under 10 heads.
 
 1. Drop retweeted_status_id, retweeted_status_user_id, retweeted_status_timestamp which have only 181 values.
